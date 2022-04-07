@@ -14,6 +14,9 @@ const StyledInput = styled.input`
     bottom:0;
     left: 0;
     padding-left: 2.625rem;
+    :focus{
+        color: #fff;
+    }
 `;
 
 function Input() {
