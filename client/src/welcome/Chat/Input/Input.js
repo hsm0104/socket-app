@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components"
 import {SendOutlined} from "@ant-design/icons"
 
@@ -36,20 +36,36 @@ const StyledSendButton = styled.button`
     }
 `;
 
-const SendMessage = () => {
+const SendMessage = ({setIsInput, isInput}) => {
+    const sendMessage = () => {
+        setIsInput(true);
+        alert("clicked");
+    }
     return(
-    <StyledSendButton>
+    <StyledSendButton onClick={sendMessage}>
         <SendOutlined />
     </StyledSendButton>
     )
 }
 
 function Input() {
-
+    const [isInput, setIsInput] = useState(false);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    
+    const handleNameChange = (event) =>{
+        setName(event.currentTarget.value)
+    }
+    const handleEmailChange = (event) =>{
+        setEmail(event.currentTarget.value)
+    }
   return (
     <div>
-        <StyledInput placeholder='정보 입력 창'/>
-        <SendMessage />
+        {
+            isInput ? <StyledInput placeholder='닉네임을 입력해주세요' onChange={handleNameChange}/>
+            :  <StyledInput placeholder='이메일 입력해주세요' type="email" onChange={handleEmailChange}/>
+        }
+        <SendMessage setIsInput={setEmail} isInput={isInput}/>
     </div>
   )
 }
