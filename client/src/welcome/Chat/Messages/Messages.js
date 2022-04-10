@@ -12,7 +12,7 @@ const [messages, setMessages] = useState("");
 
 useEffect(() => {
   socket = io(ENDPOINT);
-
+  
   socket.on('message', (message) => {
     setMessage(message) //adding Msg from admin or any msgs
   })
