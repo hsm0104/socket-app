@@ -6,19 +6,21 @@ let socket;
 
 function Messages() {
 const ENDPOINT = 'localhost:5000';
+const [greetingMsg, setGreetingMsg] = useState("잠시만요!")
 const [message, setMessage] = useState("");
 const [messages, setMessages] = useState("");
 
 
 useEffect(() => {
   socket = io(ENDPOINT);
-  
-  socket.on('message', (message) => {
-    setMessage(message) //adding Msg from admin or any msgs
+
+  socket.on("greeting", data => {
+    setGreetingMsg(data);
   })
-}, [message])
+
+}, [])
   return (
-    <div style={{color: "#fff"}}>{message}</div>
+    <div style={{color: "#fff"}}>{greetingMsg}</div>
   )
 }
 

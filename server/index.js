@@ -14,9 +14,12 @@ const io = socketio(server, {cors: {
     credentials: true
   }}); //making socket io server working
 
-  io.on('connection', (socket) => {
-    socket.emit('message', {user: 'admin', text: "환영합니다~ 회원 가입을 위해 닉네임을 적어주세요"});
+  const msg = "안녕하세요! 이름과 이메일을 입력해주세요"
 
+  io.on('connection', (socket) => {
+
+    socket.emit("greeting", msg);
+    socket.send("helloooooo!!")
      
     socket.on('join',  (callback) => {
         console.log("join join");
