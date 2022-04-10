@@ -14,13 +14,15 @@ const io = socketio(server, {cors: {
     credentials: true
   }}); //making socket io server working
 
-  const msg = "안녕하세요! 이름과 이메일을 입력해주세요"
+  const msg = "안녕하세요! 이름과 이메일을 입력해주세요";
+  const setNameMsg = "닉네임을 설정해 주세요";
+  const setEmailMsg = "이메일을 입력해주세요";
+  const joinMsg = `사용자 이름 님 환영합니다!`;
 
   io.on('connection', (socket) => {
 
     socket.emit("greeting", msg);
-    socket.send("helloooooo!!")
-     
+    socket.emit("setName", setNameMsg)     
     socket.on('join',  (callback) => {
         console.log("join join");
         if(error) return callback(error) //error msg is coming from addUser
