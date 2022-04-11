@@ -1,16 +1,16 @@
 const users = [];
 
-const addUser = ({id, name, room, email}) =>{
+const addUser = ({id, name, email}) =>{
     name = name.trim().toLowerCase();
     email = email
 
-    const existingUser = users.find((user) => user.room === room && user.name === name);
+    const existingUser = users.find((user) => user.name === name&&user.email === email);
 
     if(existingUser){
         return {error: "Username already taken"};
     }
 
-    const user = {id, name, room, email};
+    const user = {id, name, email};
     users.push(user);
     return {user}
 }
@@ -27,8 +27,5 @@ const getUser = (id) => {
     return users.find(user => user.id === id)
 }
 
-const getUsersInRoom = (room) =>{
-    return users.filter(user => user.room === room);
-}
 
-module.exports = {addUser, removeUser, getUser, getUsersInRoom};
+module.exports = {addUser, removeUser, getUser};

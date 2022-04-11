@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import io from 'socket.io-client';
 
 import { useDispatch } from 'react-redux';
 
@@ -52,6 +53,9 @@ const SendMessage = ({setIsInput, isInput}) => {
 }
 
 function Input() {
+    const ENDPOINT = 'localhost:5000';
+    let socket = io(ENDPOINT);
+
     const [isInput, setIsInput] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -64,6 +68,8 @@ function Input() {
     }
     const handleSendButton = (event) => {
         setIsInput(true);
+        socket.emit("join", {name, email}, () => {
+        });
     }
   return (
     <div>
