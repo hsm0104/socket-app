@@ -40,10 +40,9 @@ const StyledSendButton = styled.button`
     }
 `;
 
-const SendMessage = ({setIsInput, isInput}) => {
+const SendMessage = ({handleSendButton}) => {
     const sendMessage = () => {
-        setIsInput(true);
-        alert(isInput);
+        handleSendButton(true)
     }
     return(
     <StyledSendButton onClick={sendMessage}>
@@ -66,10 +65,11 @@ function Input() {
     const handleEmailChange = (event) =>{
         setEmail(event.currentTarget.value);
     }
-    const handleSendButton = (event) => {
-        setIsInput(true);
+    const handleSendButton = (state) => {
+        setIsInput(state);
         socket.emit("join", {name, email}, () => {
         });
+        setIsInput("");
     }
   return (
     <div>
@@ -77,9 +77,7 @@ function Input() {
             isInput ? <StyledInput placeholder='닉네임을 입력해주세요' onChange={handleNameChange}/>
             :  <StyledInput placeholder='이메일 입력해주세요' type="email" onChange={handleEmailChange}/>
         }
-        <StyledSendButton onClick={handleSendButton}>
-            <SendOutlined />
-        </StyledSendButton>
+        <SendMessage handleSendButton={handleSendButton} />
     </div>
   )
 }
